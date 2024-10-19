@@ -3,8 +3,16 @@ import React from 'react'
 import { UserAuth } from '../context/AuthContext'
 
 const Navbar = () => {
-    const {user} = UserAuth()
+    const { user, googleSignIn, logOut } = UserAuth()
     console.log(user)
+
+    const handleSignIn = async() => {
+        try {
+            await googleSignIn()
+        } catch (error) {
+            console.log(error)
+        }
+    }
   return (
     <div>
       <ul>
@@ -18,9 +26,9 @@ const Navbar = () => {
             <Link href='/profile'>Profile</Link>
         </li>
       </ul>
-      <ul className="flex">
-        <li>
-            Login
+      <ul className="flex-column">
+        <li onClick={handleSignIn} className = 'p-2 cursor-pointer'>
+            Sign In
         </li>
         <li>
             Sign In
